@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Embryo Imaging (Shafiee Lab)</string>
+
+    <array name="menuOptions">
+        <item>Home</item>
+        <item>Smartphone device</item>
+        <item>Standalone device</item>
+        <item>Open Camera</item>
+        <item>Sample History</item>
+        <item>Results</item>
+        <item>About</item>
+    </array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="please_reload">Please Reload !</string>
+</resources>

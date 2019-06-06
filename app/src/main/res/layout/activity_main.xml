@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+        android:layout_above="@id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar"/>
+
+
+        <FrameLayout
+            android:id="@+id/framelayout"
+            android:layout_above="@+id/view_line"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+
+
+
+
+    </LinearLayout>
+
+
+
+
+    <!--roughike bottombar library used-->
+
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="56dp"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/shadow"/>
+
+
+</RelativeLayout>
