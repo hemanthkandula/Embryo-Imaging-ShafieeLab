@@ -1,6 +1,7 @@
 package edu.harvard.bwh.shafieelab.embryoimaging.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -9,13 +10,16 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.os.Environment;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -43,6 +47,7 @@ import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import edu.harvard.bwh.shafieelab.embryoimaging.EndPoints;
 import edu.harvard.bwh.shafieelab.embryoimaging.R;
+import mehdi.sakout.fancybuttons.FancyButton;
 
 ///**
 // * A simple {@link Fragment} subclass.
@@ -67,6 +72,8 @@ public class Standalone_Fragment extends Fragment {
     ZoomageView EmbryoImage;
     TextView IDVIEW,reloadview;
     String ID = "sdvcbk";
+
+    FancyButton StartButton ;
 
 //    private OnFragmentInteractionListener mListener;
 //
@@ -108,7 +115,7 @@ public class Standalone_Fragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_standalone, container, false);
 
-        FloatingActionButton fab = view.findViewById(R.id.myFAB);
+        FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,6 +124,12 @@ public class Standalone_Fragment extends Fragment {
         });
         progressBar = view.findViewById(R.id.progressBar);
         EmbryoImage = view.findViewById(R.id.embryo_image);
+        IDVIEW = view.findViewById(R.id.ID);
+
+        reloadview =view.findViewById(R.id.reload);
+
+        StartButton = view.findViewById(R.id.start);
+
 
 
 
@@ -188,11 +201,59 @@ public class Standalone_Fragment extends Fragment {
 //    }
 
 
+    void showAlert(){
 
-void showAlert(){
-        
-}
 
+
+
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Enter Subject ID");
+
+        final EditText input = new EditText(getActivity());
+        input.setInputType(InputType.TYPE_CLASS_TEXT );
+        builder.setView(input);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ID = input.getText().toString();
+//                getSupportActionBar().setTitle("Ovulation ");
+//                IDVIEW.setText("Patient ID:  "+ID);
+
+                if(!ID.equals(""))
+                {
+//                    callpic();
+
+                    IDVIEW.setText("Subject ID:  "+ID);
+
+                    IDVIEW.setVisibility(View.VISIBLE);
+                    StartButton.setVisibility(View.VISIBLE);
+
+
+//                        TODO
+                    getImage();
+                }
+                else showAlert();
+
+
+                //         getImage();
+//                getdirectimage();
+
+
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.setCancelable(false);
+        builder.show();
+
+    }
 
 
 

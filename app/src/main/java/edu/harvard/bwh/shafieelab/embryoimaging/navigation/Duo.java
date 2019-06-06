@@ -1,5 +1,6 @@
 package edu.harvard.bwh.shafieelab.embryoimaging.navigation;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -15,6 +16,7 @@ import java.util.Arrays;
 
 
 import edu.harvard.bwh.shafieelab.embryoimaging.R;
+import edu.harvard.bwh.shafieelab.embryoimaging.camera.MainActivity;
 import edu.harvard.bwh.shafieelab.embryoimaging.fragments.Clean_Fragment;
 import nl.psdcompany.duonavigationdrawer.views.DuoDrawerLayout;
 import nl.psdcompany.duonavigationdrawer.views.DuoMenuView;
@@ -120,9 +122,9 @@ transaction.remove(fragment1);}
 
                 break;
             case 2:
-                goToFragment(new Clean_Fragment(), false);
-                getFragmentManager().popBackStack();
-
+//                goToFragment(new Clean_Fragment(), false);
+//                getFragmentManager().popBackStack();
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 break;
             case 3:
                 goToFragment(new Clean_Fragment(), false);

@@ -51,13 +51,13 @@
                     android:layout_margin="10sp">
 
                     <ImageView
-                        android:id="@+id/image_hba"
-                        android:scaleType="fitXY"
-
+                        android:id="@+id/image_standalone"
                         android:layout_width="match_parent"
+
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_launcher_background"
-                        android:contentDescription="TODO" />
+                        android:contentDescription="TODO"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_launcher_background" />
 
 
 
@@ -73,7 +73,7 @@
                     android:layout_centerHorizontal="true"
                     android:fontFamily="monospace"
                     android:gravity="center"
-                    android:text="Hyaluronan Binding Assay"
+                    android:text="Standalone Device"
                     android:textColor="@android:color/white"
 
                     android:textSize="14sp"
@@ -125,13 +125,14 @@
             android:layout_margin="10sp">
 
             <ImageView
-                android:id="@+id/image_dna"
-                android:scaleType="fitXY"
-
+                android:id="@+id/image_smartphone"
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_launcher_background"
-                android:contentDescription="TODO" />
+                android:layout_alignTop="@+id/card_view2"
+                android:contentDescription="TODO"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_launcher_background" />
 
 
 
@@ -145,11 +146,13 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="14dp"
+                    android:layout_marginBottom="2dp"
                     android:fontFamily="monospace"
                     android:gravity="center"
-                    android:text="DNA Fragmentation Assay"
-                    android:textColor="@android:color/white"
 
+                    android:text="Smartphone Device"
+                    android:textColor="@android:color/white"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 

@@ -1,134 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.Standalone_Fragment">
 
-    <RelativeLayout android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
 
 
         tools:context="edu.harvard.bwh.shafieelab.embryoimaging.MainActivity">
 
-        <!--<android.support.design.widget.AppBarLayout-->
-        <!--android:id="@+id/app_bar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="?attr/colorPrimary"-->
-        <!--android:theme="@style/ThemeOverlay.AppCompat.Dark">-->
 
-        <!--<android.support.v7.widget.Toolbar-->
-        <!--android:id="@+id/toolbar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="?attr/colorPrimary"-->
-        <!--android:paddingLeft="32dp"-->
-        <!--android:paddingRight="32dp" />-->
-
-        <!--</android.support.design.widget.AppBarLayout>-->
 
         <TextView
 
             android:id="@+id/ID"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20sp"
+            android:text="Patient ID : E118"
             android:textSize="25sp"
             android:textStyle="bold"
-            android:text="Patient ID : E118"
-            android:layout_height="wrap_content" />
+            fancy:layout_constraintBottom_toBottomOf="parent"
+            fancy:layout_constraintEnd_toEndOf="parent"
+            fancy:layout_constraintHorizontal_bias="0.497"
+            fancy:layout_constraintStart_toStartOf="parent"
+            fancy:layout_constraintTop_toTopOf="parent"
+            fancy:layout_constraintVertical_bias="0.084" />
 
         <com.jsibbold.zoomage.ZoomageView
             android:id="@+id/embryo_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="408dp"
+            android:layout_height="488dp"
             android:layout_above="@id/retake"
-            app:zoomage_restrictBounds="false"
-            app:zoomage_animateOnReset="true"
-            app:zoomage_autoResetMode="UNDER"
-            app:zoomage_autoCenter="true"
-            app:zoomage_zoomable="true"
-            app:zoomage_translatable="true"
-            android:layout_marginTop="10sp"
-            android:layout_marginBottom="10sp"
-
-            app:zoomage_minScale="0.6"
-            app:zoomage_maxScale="8"
             android:layout_below="@id/ID"
-            />
+            android:layout_marginTop="16dp"
+
+            app:zoomage_animateOnReset="true"
+            app:zoomage_autoCenter="true"
+            app:zoomage_autoResetMode="UNDER"
+            app:zoomage_maxScale="8"
+            app:zoomage_minScale="0.6"
+            app:zoomage_restrictBounds="false"
+            app:zoomage_translatable="true"
+            app:zoomage_zoomable="true"
+            fancy:layout_constraintBottom_toBottomOf="parent"
+            fancy:layout_constraintEnd_toEndOf="parent"
+            fancy:layout_constraintHorizontal_bias="0.333"
+            fancy:layout_constraintStart_toStartOf="parent"
+            fancy:layout_constraintTop_toBottomOf="@+id/ID"
+            fancy:layout_constraintVertical_bias="0.082" />
 
 
         <TextView
             android:id="@+id/reload"
-            android:visibility="invisible"
+            android:layout_width="91dp"
+            android:layout_height="26dp"
             android:layout_centerInParent="true"
             android:text="@string/please_reload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:visibility="invisible"
+            fancy:layout_constraintBottom_toBottomOf="@+id/embryo_image"
+            fancy:layout_constraintEnd_toEndOf="@+id/embryo_image"
+            fancy:layout_constraintStart_toStartOf="@+id/embryo_image"
+            fancy:layout_constraintTop_toTopOf="@+id/embryo_image"
+            fancy:layout_constraintVertical_bias="0.315" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:indeterminate="true"
             android:visibility="invisible"
-            android:indeterminate="true" />
+            fancy:layout_constraintBottom_toBottomOf="@+id/embryo_image"
+            fancy:layout_constraintEnd_toEndOf="parent"
+            fancy:layout_constraintStart_toStartOf="parent"
+            fancy:layout_constraintTop_toTopOf="@+id/embryo_image" />
 
 
         <ImageButton
             android:id="@+id/retake"
             android:layout_width="40sp"
             android:layout_height="40sp"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="37dp"
-            android:layout_marginStart="70dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/reload"
+            android:contentDescription="TODO"
             android:onClick="retake"
             android:src="@drawable/reload"
             android:text="Retake"
-            android:contentDescription="TODO" />
+            fancy:layout_constraintBottom_toBottomOf="@+id/start"
+            fancy:layout_constraintEnd_toStartOf="@+id/start"
+            fancy:layout_constraintHorizontal_bias="0.448"
+            fancy:layout_constraintStart_toStartOf="parent"
+            fancy:layout_constraintTop_toTopOf="@+id/start" />
 
-        <Button
-            android:id="@+id/button"
-            android:textColor="#fff"
-
-            android:background="@drawable/mybutton"
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/embryo_image"
+
+            android:layout_alignParentBottom="true"
+
+
             android:layout_centerHorizontal="true"
-            android:text="Start" />
 
-        <Button
-            android:id="@+id/analuse"
-            android:textColor="#fff"
-            android:visibility="gone"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            fancy:fb_borderColor="#FFFFFF"
+            fancy:fb_borderWidth="1dp"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorPrimaryDark"
+            fancy:fb_iconPosition="left"
+            fancy:fb_iconResource="@drawable/googleplay"
+            fancy:fb_radius="30dp"
+            fancy:fb_text="Start"
+            fancy:fb_textColor="#FFFFFF"
+            fancy:layout_constraintBottom_toBottomOf="parent"
+            fancy:layout_constraintEnd_toEndOf="parent"
+            fancy:layout_constraintStart_toStartOf="parent"
+            fancy:layout_constraintTop_toBottomOf="@+id/ID"
+            fancy:layout_constraintVertical_bias="0.9" />
 
-            android:background="@drawable/mybutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/embryo_image"
-            android:layout_centerHorizontal="true"
-            android:text="Analyse" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            style="@style/Widget.MaterialSheetFab.Fab"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:elevation="5sp"
+            android:visibility="visible"
+            fancy:layout_constraintBottom_toBottomOf="@+id/start"
+            fancy:layout_constraintEnd_toEndOf="parent"
+            fancy:layout_constraintStart_toEndOf="@+id/start"
+            fancy:layout_constraintTop_toTopOf="@+id/start"
+            fancy:layout_constraintVertical_bias="1.0" />
 
 
-    </RelativeLayout>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/myFAB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/retake"
-        android:layout_marginEnd="66dp"
-        android:layout_marginRight="66dp"
-        android:src="@drawable/plus"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:elevation="4dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton-->
+        <!--android:id="@+id/myFAB"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginEnd="66dp"-->
+        <!--android:src="@drawable/plus"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--android:layout_margin="@dimen/fab_margin"-->
+        <!--app:elevation="4dp" />-->
 
 
 </FrameLayout>

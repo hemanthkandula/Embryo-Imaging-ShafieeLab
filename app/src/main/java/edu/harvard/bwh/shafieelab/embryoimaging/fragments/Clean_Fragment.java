@@ -90,7 +90,7 @@ public class Clean_Fragment extends Fragment {
 
 
 
-        ImageView imageView_hba = view.findViewById(R.id.image_hba);
+        ImageView imageView_hba = view.findViewById(R.id.image_standalone);
 
         imageView_hba.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +106,7 @@ public class Clean_Fragment extends Fragment {
 
 
 
-        ImageView imageView_dna = view.findViewById(R.id.image_dna);
+        ImageView imageView_dna = view.findViewById(R.id.image_smartphone);
 
         imageView_dna.setOnClickListener(new View.OnClickListener() {
             @Override
