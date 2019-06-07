@@ -97,7 +97,7 @@ public class Clean_Fragment extends Fragment {
             public void onClick(View v) {
 
 
-                ((Duo)getActivity()).gotofrag(new Standalone_Fragment(),1,false);
+                ((Duo)getActivity()).gotofrag(new StandaloneFragment(),1,false);
 
                 getActivity().getFragmentManager().popBackStack();
 
@@ -114,7 +114,7 @@ public class Clean_Fragment extends Fragment {
 
 
 
-((Duo)getActivity()).gotofrag(new Clean_Fragment(),2,false);
+((Duo)getActivity()).gotofrag(new SmartphoneFragment(),2,false);
                 getActivity().getFragmentManager().popBackStack();
 
 

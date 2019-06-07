@@ -19,7 +19,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -49,19 +51,9 @@ import edu.harvard.bwh.shafieelab.embryoimaging.EndPoints;
 import edu.harvard.bwh.shafieelab.embryoimaging.R;
 import mehdi.sakout.fancybuttons.FancyButton;
 
-///**
-// * A simple {@link Fragment} subclass.
-// * Activities that contain this fragment must implement the
-// * {@link Standalone_Fragment.OnFragmentInteractionListener} interface
-// * to handle interaction events.
-// * Use the {@link Standalone_Fragment#newInstance} factory method to
-// * create an instance of this fragment.
-// */
-public class Standalone_Fragment extends Fragment {
+
+public class StandaloneFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -71,41 +63,14 @@ public class Standalone_Fragment extends Fragment {
     ProgressBar progressBar;
     ZoomageView EmbryoImage;
     TextView IDVIEW,reloadview;
-    String ID = "sdvcbk";
+    String ID = null;
 
-    FancyButton StartButton ;
-
-//    private OnFragmentInteractionListener mListener;
-//
-//    public Standalone_Fragment() {
-//        // Required empty public constructor
-//    }
-//
-//    /**
-//     * Use this factory method to create a new instance of
-//     * this fragment using the provided parameters.
-//     *
-//     * @param param1 Parameter 1.
-//     * @param param2 Parameter 2.
-//     * @return A new instance of fragment Standalone_Fragment.
-//     */
-//    // TODO: Rename and change types and number of parameters
-//    public static Standalone_Fragment newInstance(String param1, String param2) {
-//        Standalone_Fragment fragment = new Standalone_Fragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
+    Button StartButton ;
+    ImageButton retakebutton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -127,14 +92,33 @@ public class Standalone_Fragment extends Fragment {
         IDVIEW = view.findViewById(R.id.ID);
 
         reloadview =view.findViewById(R.id.reload);
+        retakebutton =view.findViewById(R.id.retake);
 
         StartButton = view.findViewById(R.id.start);
+        StartButton.setVisibility(View.GONE);
+        retakebutton.setVisibility(View.GONE);
+        reloadview.setVisibility(View.GONE);
+
+
+        StartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getdirectimage();
+            }
+        });
+
+        retakebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                retake();
+                retakebutton.setVisibility(View.GONE);
+            }
+        });
 
 
 
 
-        File folder = new File(Environment.getExternalStorageDirectory().toString()+"/Embryo Images");
-        folder.mkdirs();
+
         if(ID== null )
 
             showAlert();
@@ -142,11 +126,16 @@ public class Standalone_Fragment extends Fragment {
             if(ID.equals(""))
                 showAlert();
             else{
+                EmbryoImage.setImageResource(0);
 
-                getimageloc();
+//                getimageloc();
                 IDVIEW.setText("Patient ID:  "+ID);
 
-                reloadview.setVisibility(View.INVISIBLE);
+                File folder = new File(Environment.getExternalStorageDirectory().toString()+"/Embryo Images/"+ID);
+                folder.mkdirs();
+
+                reloadview.setVisibility(View.GONE);
+                retakebutton.setVisibility(View.GONE);
 
             }}
 
@@ -161,47 +150,10 @@ public class Standalone_Fragment extends Fragment {
 
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-//    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
-//    }
-//
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
-//
-//    /**
-//     * This interface must be implemented by activities that contain this
-//     * fragment to allow an interaction in this fragment to be communicated
-//     * to the activity and potentially other fragments contained in that
-//     * activity.
-//     * <p>
-//     * See the Android Training lesson <a href=
-//     * "http://developer.android.com/training/basics/fragments/communicating.html"
-//     * >Communicating with Other Fragments</a> for more information.
-//     */
-//    public interface OnFragmentInteractionListener {
-//        // TODO: Update argument type and name
-//        void onFragmentInteraction(Uri uri);
-//    }
 
 
-    void showAlert(){
+
+    private void showAlert(){
 
 
 
@@ -209,7 +161,7 @@ public class Standalone_Fragment extends Fragment {
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Enter Subject ID");
+        builder.setTitle("Enter Patient ID");
 
         final EditText input = new EditText(getActivity());
         input.setInputType(InputType.TYPE_CLASS_TEXT );
@@ -225,15 +177,19 @@ public class Standalone_Fragment extends Fragment {
                 if(!ID.equals(""))
                 {
 //                    callpic();
+                    EmbryoImage.setImageResource(0);
 
                     IDVIEW.setText("Subject ID:  "+ID);
 
                     IDVIEW.setVisibility(View.VISIBLE);
                     StartButton.setVisibility(View.VISIBLE);
+                    retakebutton.setVisibility(View.GONE);
 
+                    File folder = new File(Environment.getExternalStorageDirectory().toString()+"/Embryo Images/"+ID);
+                    folder.mkdirs();
 
 //                        TODO
-                    getImage();
+//                    getImage();
                 }
                 else showAlert();
 
@@ -293,8 +249,11 @@ public class Standalone_Fragment extends Fragment {
 
 
         progressBar.setVisibility(View.VISIBLE);
+        retakebutton.setVisibility(View.GONE);
+        StartButton.setEnabled(false);
+
         Glide.with(getActivity())
-                .load(EndPoints.URL_get_image)
+                .load(EndPoints.URL_get_image+ID)
                 .apply(requestOptions)
                 .listener(new RequestListener<Drawable>() {
                     @Override
@@ -307,9 +266,20 @@ public class Standalone_Fragment extends Fragment {
                         progressBar.setVisibility(View.GONE);
                         Bitmap bmp = ((BitmapDrawable)resource).getBitmap();
 
-                        String path = Environment.getExternalStorageDirectory().toString()+"/Embryo Images/";
+                        String path = Environment.getExternalStorageDirectory().toString()+"/Embryo Images/"+ID+"/";
 
-                        File file = new File(path, ID+".png");
+                        File directory = new File(path);
+                        if (!directory.exists()) {
+                            boolean success = directory.mkdirs();
+                            if(success){
+                               Log.d("dire","Created");
+                            }
+
+                        }
+                        File[] files = directory.listFiles();
+
+
+                        File file = new File(path, ID+"_"+files.length+".png");
                         FileOutputStream out = null;
                         try {
                             out = new FileOutputStream(file);
@@ -328,11 +298,72 @@ public class Standalone_Fragment extends Fragment {
                         }
 
 
+                        StartButton.setVisibility(View.GONE);
+                        retakebutton.setVisibility(View.VISIBLE);
+
+
+
                         return false;
                     }
                 })
                 .into(EmbryoImage)
         ;
+
+
+
+//        AsyncHttpClient client = new AsyncHttpClient();
+//
+//
+//        client.get(EndPoints.URL_get_image, null, new AsyncHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+//
+//
+//
+//
+//
+//
+//
+//
+//                Bitmap bmp = BitmapFactory.decodeByteArray(responseBody, 0, responseBody.length);
+//
+//                String path = Environment.getExternalStorageDirectory().toString()+"/Embryo Images/"+ID+"/";
+//
+//                File directory = new File(path);
+//
+//                File[] files = directory.listFiles();
+//
+//
+//
+//
+//                File file = new File(path, ID+"_"+files.length+".png");
+//                FileOutputStream out = null;
+//                try {
+//                    out = new FileOutputStream(file);
+//                    bmp.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
+//                    // PNG is a lossless format, the compression factor (100) is ignored
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                } finally {
+//                    try {
+//                        if (out != null) {
+//                            out.close();
+//                        }
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+//
+//                progressBar.setVisibility(View.INVISIBLE);
+//
+//            }
+//        });
+
     }
 
 
@@ -454,110 +485,109 @@ public class Standalone_Fragment extends Fragment {
 
 
 
-    public void getImage(){
+//    private void getImage(){
+//
+//
+//        //EmbryoImage.setImageResource(android.R.color.transparent);
+//
+//        AsyncHttpClient client = new AsyncHttpClient();
+//
+//        progressBar.setVisibility(View.VISIBLE);
+//
+//
+////        JSONObject jsonParams = new JSONObject();
+//
+//
+////            StringEntity entity = new StringEntity(jsonParams.toString());
+//
+//
+//
+//        client.get( EndPoints.URL_get_image, null,
+//                new AsyncHttpResponseHandler() {
+//                    @Override
+//                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+//
+////                            getImage2();
+//                        //Log.d("TAG",new String(responseBody));
+//
+//
+////                            Picasso.with(getApplicationContext()).load(EndPoints.URL_get_image2).resize(50, 50).
+////                                    centerCrop().into(EmbryoImage);
+//
+//                        progressBar.setVisibility(View.INVISIBLE);
+//
+//                        Bitmap bmp = BitmapFactory.decodeByteArray(responseBody, 0, responseBody.length);
+//                        //EmbryoImage.setImageBitmap(bmp);
+//
+//
+////                            EmbryoImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, EmbryoImage.getWidth(),
+////                                    EmbryoImage.getHeight(), false));
+//
+//
+//
+//                        String path = Environment.getExternalStorageDirectory().toString()+"/Embryo Images/";
+//
+//                        File file = new File(path, ID+".png");
+//                        FileOutputStream out = null;
+//                        try {
+//                            out = new FileOutputStream(file);
+//                            bmp.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
+//                            // PNG is a lossless format, the compression factor (100) is ignored
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        } finally {
+//                            try {
+//                                if (out != null) {
+//                                    out.close();
+//                                }
+//                            } catch (IOException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//
+//
+//
+//
+//                        File imgFile = new  File(Environment.getExternalStorageDirectory().toString()+"/Embryo Images/"+ID+".png");
+//
+//
+//                        if(imgFile.exists()){
+//
+//
+//                            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+//
+//                            ImageView myImage = (ImageView) view.findViewById(R.id.embryo_image);
+//
+//                            myImage.setImageBitmap(myBitmap);
+////                                reloadview.setVisibility(View.INVISIBLE);
+//                            progressBar.setVisibility(View.INVISIBLE);
+//
+//                        }
+//
+//
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+////                            Log.d("TAGerror",new String(responseBody));
+//
+//
+//
+////reloadview.setVisibility(View.VISIBLE);
+//                        progressBar.setVisibility(View.INVISIBLE);
+//                    }
+//                });
+//
+//
+//
+//
+//    }
 
+    public void retake(){
 
-        //EmbryoImage.setImageResource(android.R.color.transparent);
+//        getImage();
 
-        AsyncHttpClient client = new AsyncHttpClient();
-
-        progressBar.setVisibility(View.VISIBLE);
-
-
-        JSONObject jsonParams = new JSONObject();
-
-
-//            StringEntity entity = new StringEntity(jsonParams.toString());
-
-
-
-        client.get( EndPoints.URL_get_image, null,
-                new AsyncHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-//                            getImage2();
-                        //Log.d("TAG",new String(responseBody));
-
-
-//                            Picasso.with(getApplicationContext()).load(EndPoints.URL_get_image2).resize(50, 50).
-//                                    centerCrop().into(EmbryoImage);
-
-                        progressBar.setVisibility(View.INVISIBLE);
-
-                        Bitmap bmp = BitmapFactory.decodeByteArray(responseBody, 0, responseBody.length);
-                        //EmbryoImage.setImageBitmap(bmp);
-
-
-//                            EmbryoImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, EmbryoImage.getWidth(),
-//                                    EmbryoImage.getHeight(), false));
-
-
-
-                        String path = Environment.getExternalStorageDirectory().toString()+"/Embryo Images/";
-
-                        File file = new File(path, ID+".png");
-                        FileOutputStream out = null;
-                        try {
-                            out = new FileOutputStream(file);
-                            bmp.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
-                            // PNG is a lossless format, the compression factor (100) is ignored
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        } finally {
-                            try {
-                                if (out != null) {
-                                    out.close();
-                                }
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-
-
-
-                        File imgFile = new  File(Environment.getExternalStorageDirectory().toString()+"/Embryo Images/"+ID+".png");
-
-
-                        if(imgFile.exists()){
-
-
-                            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-
-                            ImageView myImage = (ImageView) view.findViewById(R.id.embryo_image);
-
-                            myImage.setImageBitmap(myBitmap);
-//                                reloadview.setVisibility(View.INVISIBLE);
-                            progressBar.setVisibility(View.INVISIBLE);
-
-                        }
-
-
-
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-//                            Log.d("TAGerror",new String(responseBody));
-
-
-
-//reloadview.setVisibility(View.VISIBLE);
-                        progressBar.setVisibility(View.INVISIBLE);
-                    }
-                });
-
-
-
-
-    }
-
-    public void retake(View v){
-
-        getImage();
-
-        getdirectimage();
 
 
 
@@ -569,9 +599,17 @@ public class Standalone_Fragment extends Fragment {
             if(ID.equals(""))
                 showAlert();
             else{
+                EmbryoImage.setImageResource(0);
+
+
                 getdirectimage();
                 IDVIEW.setText("Patient ID:  "+ID);
             }}
+
+
+
+        getdirectimage();
+
     }
 
     public void showAl(View v){

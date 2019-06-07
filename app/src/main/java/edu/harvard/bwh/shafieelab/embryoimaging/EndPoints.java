@@ -5,7 +5,7 @@ package edu.harvard.bwh.shafieelab.embryoimaging;
  */
 
 public class EndPoints {
-    private static final String URL_DOMAIN = "http://192.168.43.30";
+    private static final String URL_DOMAIN = "http://192.168.1.217";
 
 
     public static final String URL_LOGIN = URL_DOMAIN+"/login";
@@ -15,7 +15,7 @@ public class EndPoints {
 
 
 
-    public static final String URL_get_image = URL_DOMAIN+"/capture.php";
+    public static final String URL_get_image = URL_DOMAIN+"/get_image?slide=";
     public static final String URL_get_image2 = URL_DOMAIN+"/embryo.jpg";
 
 

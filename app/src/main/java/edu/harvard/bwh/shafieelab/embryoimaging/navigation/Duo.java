@@ -16,8 +16,9 @@ import java.util.Arrays;
 
 
 import edu.harvard.bwh.shafieelab.embryoimaging.R;
-import edu.harvard.bwh.shafieelab.embryoimaging.camera.MainActivity;
 import edu.harvard.bwh.shafieelab.embryoimaging.fragments.Clean_Fragment;
+import edu.harvard.bwh.shafieelab.embryoimaging.fragments.SmartphoneFragment;
+import edu.harvard.bwh.shafieelab.embryoimaging.fragments.StandaloneFragment;
 import nl.psdcompany.duonavigationdrawer.views.DuoDrawerLayout;
 import nl.psdcompany.duonavigationdrawer.views.DuoMenuView;
 import nl.psdcompany.duonavigationdrawer.widgets.DuoDrawerToggle;
@@ -122,12 +123,11 @@ transaction.remove(fragment1);}
 
                 break;
             case 2:
-//                goToFragment(new Clean_Fragment(), false);
-//                getFragmentManager().popBackStack();
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                goToFragment(new SmartphoneFragment(), false);
+                getFragmentManager().popBackStack();
                 break;
             case 3:
-                goToFragment(new Clean_Fragment(), false);
+                goToFragment(new StandaloneFragment(), false);
                 getFragmentManager().popBackStack();
 
                 break;

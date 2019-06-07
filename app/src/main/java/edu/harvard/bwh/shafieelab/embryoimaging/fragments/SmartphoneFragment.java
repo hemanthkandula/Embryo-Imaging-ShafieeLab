@@ -37,6 +37,7 @@ import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -124,7 +125,7 @@ public class SmartphoneFragment extends Fragment
         ORIENTATIONS.append(Surface.ROTATION_270, 180);
     }
 
-    Button mpicturebutton;
+    ImageButton mpicturebutton;
     /**
      * ID of the current {@link CameraDevice}.
      */
@@ -405,7 +406,7 @@ public class SmartphoneFragment extends Fragment
 
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
-        mpicturebutton = view.findViewById(R.id.picture);
+        mpicturebutton = view.findViewById(R.id.camera_capture_button);
         mpicturebutton.setOnClickListener(this);
         mTextureView = view.findViewById(R.id.texture);
 
@@ -887,8 +888,11 @@ public class SmartphoneFragment extends Fragment
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.picture: {
+            case R.id.camera_capture_button: {
                 takePicture();
+                System.out.println("Button  prerwssed");
+                System.out.println("Button  prerwssed");
+                System.out.println("Button  prerwssed");
                 break;
             }
 
