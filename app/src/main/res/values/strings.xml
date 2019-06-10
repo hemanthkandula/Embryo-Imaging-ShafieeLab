@@ -3,8 +3,8 @@
 
     <array name="menuOptions">
         <item>Home</item>
-        <item>Smartphone device</item>
         <item>Standalone device</item>
+        <item>Smartphone device</item>
         <item>Open Camera</item>
         <item>Sample History</item>
         <item>Results</item>
@@ -16,7 +16,6 @@
     <string name="please_reload">Please Reload !</string>
 
     <string name="camera_error">This device doesn\'t support Camera2 API.</string>
-
 
 
     <string name="capture_button_alt">Capture</string>
@@ -31,6 +30,8 @@
     <string name="delete_button_alt">Delete</string>
     <string name="delete_dialog">Delete current photo?</string>
     <string name="delete_title">Confirm</string>
+    <string name="title_activity_standalone">StandaloneActivity</string>
+    <string name="title_activity_smartphone">SmartphoneActivity</string>
 
 
 </resources>

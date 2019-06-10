@@ -3,35 +3,39 @@
     xmlns:dist="http://schemas.android.com/apk/distribution"
     xmlns:tools="http://schemas.android.com/tools"
     package="edu.harvard.bwh.shafieelab.embryoimaging">
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <dist:module dist:instant="true" />
-    <!-- Declare features -->
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <dist:module dist:instant="true" /> <!-- Declare features -->
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
-
-        tools:ignore="GoogleAppIndexingWarning"
-        android:fullBackupContent="true">
-        <!--<activity android:name=".MainActivity">-->
-            <!--&lt;!&ndash;<intent-filter>&ndash;&gt;-->
-                <!--&lt;!&ndash;<action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
-
-                <!--&lt;!&ndash;<category android:name="android.intent.category.LAUNCHER" />&ndash;&gt;-->
-            <!--&lt;!&ndash;</intent-filter>&ndash;&gt;-->
-        <!--</activity>-->
-
-
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".smartphone.SmartphoneActivity"
+            android:label="@string/title_activity_smartphone"
+            android:theme="@style/AppTheme.NoActionBar.NoActionBar"></activity>
+        <activity
+            android:name=".standalone.StandaloneActivity"
+            android:label="@string/title_activity_standalone"
+            android:theme="@style/AppTheme.NoActionBar.NoActionBar" /> <!-- <activity android:name=".MainActivity"> -->
+        <!-- &lt;!&ndash;<intent-filter>&ndash;&gt; -->
+        <!-- &lt;!&ndash;<action android:name="android.intent.action.MAIN" />&ndash;&gt; -->
+        <!-- &lt;!&ndash;<category android:name="android.intent.category.LAUNCHER" />&ndash;&gt; -->
+        <!-- &lt;!&ndash;</intent-filter>&ndash;&gt; -->
+        <!-- </activity> -->
         <activity android:name=".navigation.Duo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

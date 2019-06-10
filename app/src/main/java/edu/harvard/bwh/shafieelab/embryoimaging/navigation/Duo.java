@@ -17,8 +17,8 @@ import java.util.Arrays;
 
 import edu.harvard.bwh.shafieelab.embryoimaging.R;
 import edu.harvard.bwh.shafieelab.embryoimaging.fragments.Clean_Fragment;
-import edu.harvard.bwh.shafieelab.embryoimaging.fragments.SmartphoneFragment;
-import edu.harvard.bwh.shafieelab.embryoimaging.fragments.StandaloneFragment;
+import edu.harvard.bwh.shafieelab.embryoimaging.smartphone.SmartphoneActivity;
+import edu.harvard.bwh.shafieelab.embryoimaging.standalone.StandaloneActivity;
 import nl.psdcompany.duonavigationdrawer.views.DuoDrawerLayout;
 import nl.psdcompany.duonavigationdrawer.views.DuoMenuView;
 import nl.psdcompany.duonavigationdrawer.widgets.DuoDrawerToggle;
@@ -116,18 +116,24 @@ transaction.remove(fragment1);}
         // Navigate to the right fragment
         switch (position) {
 
-            case 1:
+            case 0:
                 goToFragment(new Clean_Fragment(), false);
                 getFragmentManager().popBackStack();
 
 
                 break;
+            case 1:
+                startActivity(new Intent(getApplicationContext(), StandaloneActivity.class));
+                getFragmentManager().popBackStack();
+
+
+                break;
             case 2:
-                goToFragment(new SmartphoneFragment(), false);
+                startActivity(new Intent(getApplicationContext(), SmartphoneActivity.class));
                 getFragmentManager().popBackStack();
                 break;
             case 3:
-                goToFragment(new StandaloneFragment(), false);
+                goToFragment(new Clean_Fragment(), false);
                 getFragmentManager().popBackStack();
 
                 break;

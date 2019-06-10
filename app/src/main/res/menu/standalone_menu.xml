@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--<item-->
+        <!--android:id="@+id/baack"-->
+        <!--android:icon="@drawable/ic_chevron_left_black_24dp"-->
+        <!--android:orderInCategory="100"-->
+        <!--app:showAsAction="always"-->
+        <!--android:actionLayout="@layout/toolbar"-->
+        <!--android:title="baack" />-->
+
+    <item
+        android:id="@+id/gallery"
+        android:icon="@drawable/ic_photo"
+        android:orderInCategory="200"
+        app:showAsAction="always"
+        android:actionLayout="@layout/toolbar"
+        android:title="Pictures" />
+
+</menu>
