@@ -15,6 +15,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:screenOrientation="portrait"
+
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,20 +25,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
+
         <activity
-            android:name=".smartphone.SmartphoneActivity"
+            android:name=".smartphone.SmartphoneActivity_x"
             android:label="@string/title_activity_smartphone"
-            android:theme="@style/AppTheme.NoActionBar.NoActionBar"></activity>
+            android:screenOrientation="portrait"
+
+            android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
         <activity
             android:name=".standalone.StandaloneActivity"
             android:label="@string/title_activity_standalone"
+            android:screenOrientation="portrait"
+
             android:theme="@style/AppTheme.NoActionBar.NoActionBar" /> <!-- <activity android:name=".MainActivity"> -->
         <!-- &lt;!&ndash;<intent-filter>&ndash;&gt; -->
         <!-- &lt;!&ndash;<action android:name="android.intent.action.MAIN" />&ndash;&gt; -->
         <!-- &lt;!&ndash;<category android:name="android.intent.category.LAUNCHER" />&ndash;&gt; -->
         <!-- &lt;!&ndash;</intent-filter>&ndash;&gt; -->
         <!-- </activity> -->
-        <activity android:name=".navigation.Duo">
+        <activity
+            android:screenOrientation="portrait"
+
+            android:name=".navigation.Duo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

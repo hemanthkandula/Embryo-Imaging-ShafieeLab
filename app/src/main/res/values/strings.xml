@@ -32,6 +32,7 @@
     <string name="delete_title">Confirm</string>
     <string name="title_activity_standalone">StandaloneActivity</string>
     <string name="title_activity_smartphone">SmartphoneActivity</string>
+    <string name="title_activity_smartphone_kt">SmartphoneActivity_kt</string>
 
 
 </resources>
