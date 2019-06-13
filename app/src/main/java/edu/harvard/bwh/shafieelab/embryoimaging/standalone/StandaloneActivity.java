@@ -177,7 +177,7 @@ public class StandaloneActivity extends AppCompatActivity {
 //                getimageloc();
                 IDVIEW.setText("Patient ID:  "+ID);
 
-                File folder = new File(Environment.getExternalStorageDirectory().toString()+"/Embryo Images/"+ID);
+                File folder = new File(Environment.getExternalStorageDirectory().toString()+"/Embryo Images/Standalone/"+ID);
                 folder.mkdirs();
 
                 reloadview.setVisibility(View.GONE);
@@ -242,7 +242,7 @@ public class StandaloneActivity extends AppCompatActivity {
                     StartButton.setVisibility(View.VISIBLE);
                     retakebutton.setVisibility(View.GONE);
 
-                    File folder = new File(Environment.getExternalStorageDirectory().toString()+"/Embryo Images/"+ID);
+                    File folder = new File(Environment.getExternalStorageDirectory().toString()+"/Embryo Images/Standalone/"+ID);
                     folder.mkdirs();
 
 //                        TODO
@@ -323,7 +323,7 @@ public class StandaloneActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                         Bitmap bmp = ((BitmapDrawable)resource).getBitmap();
 
-                        String path = Environment.getExternalStorageDirectory().toString()+"/Embryo Images/"+ID+"/";
+                        String path = Environment.getExternalStorageDirectory().toString()+"/Embryo Images/Standalone/"+ID+"/";
 
                         File directory = new File(path);
                         if (!directory.exists()) {
@@ -384,7 +384,7 @@ public class StandaloneActivity extends AppCompatActivity {
 //
 //                Bitmap bmp = BitmapFactory.decodeByteArray(responseBody, 0, responseBody.length);
 //
-//                String path = Environment.getExternalStorageDirectory().toString()+"/Embryo Images/"+ID+"/";
+//                String path = Environment.getExternalStorageDirectory().toString()+"/Embryo Images/Standalone/"+ID+"/";
 //
 //                File directory = new File(path);
 //
@@ -435,7 +435,7 @@ public class StandaloneActivity extends AppCompatActivity {
         requestOptions.diskCacheStrategy(DiskCacheStrategy.NONE);
         requestOptions.skipMemoryCache(true);
 
-        String path = Environment.getExternalStorageDirectory().toString()+"/Embryo Images/"+ID+".png";
+        String path = Environment.getExternalStorageDirectory().toString()+"/Embryo Images/Standalone/"+ID+".png";
 
         Uri imageUri = Uri.fromFile(new File(path));
 
@@ -495,7 +495,7 @@ public class StandaloneActivity extends AppCompatActivity {
 
 
 
-                            String path = Environment.getExternalStorageDirectory().toString()+"/Embryo Images/";
+                            String path = Environment.getExternalStorageDirectory().toString()+"/Embryo Images/Standalone/";
 
                             File file = new File(path, ID+".png");
                             FileOutputStream out = null;
@@ -581,7 +581,7 @@ public class StandaloneActivity extends AppCompatActivity {
 //
 //
 //
-//                        String path = Environment.getExternalStorageDirectory().toString()+"/Embryo Images/";
+//                        String path = Environment.getExternalStorageDirectory().toString()+"/Embryo Images/Standalone/";
 //
 //                        File file = new File(path, ID+".png");
 //                        FileOutputStream out = null;
@@ -604,7 +604,7 @@ public class StandaloneActivity extends AppCompatActivity {
 //
 //
 //
-//                        File imgFile = new  File(Environment.getExternalStorageDirectory().toString()+"/Embryo Images/"+ID+".png");
+//                        File imgFile = new  File(Environment.getExternalStorageDirectory().toString()+"/Embryo Images/Standalone/"+ID+".png");
 //
 //
 //                        if(imgFile.exists()){
