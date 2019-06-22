@@ -2,7 +2,6 @@ package edu.harvard.bwh.shafieelab.embryoimaging.navigation;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.util.Log;
 import android.widget.Toast;
 
@@ -14,11 +13,9 @@ import androidx.fragment.app.FragmentTransaction;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
 import edu.harvard.bwh.shafieelab.embryoimaging.R;
 import edu.harvard.bwh.shafieelab.embryoimaging.fragments.Clean_Fragment;
 import edu.harvard.bwh.shafieelab.embryoimaging.smartphone.SmartphoneActivity;
-import edu.harvard.bwh.shafieelab.embryoimaging.smartphone.SmartphoneActivity_x;
 import edu.harvard.bwh.shafieelab.embryoimaging.standalone.StandaloneActivity;
 import nl.psdcompany.duonavigationdrawer.views.DuoDrawerLayout;
 import nl.psdcompany.duonavigationdrawer.views.DuoMenuView;
@@ -216,9 +213,9 @@ Log.d("debugged",currentFragment+"");
         private Toolbar mToolbar;
 
         ViewHolder() {
-            mDuoDrawerLayout = (DuoDrawerLayout) findViewById(R.id.drawer);
+            mDuoDrawerLayout = findViewById(R.id.drawer);
             mDuoMenuView = (DuoMenuView) mDuoDrawerLayout.getMenuView();
-            mToolbar = (Toolbar) findViewById(R.id.toolbar);
+            mToolbar = findViewById(R.id.toolbar);
         }
     }
 }

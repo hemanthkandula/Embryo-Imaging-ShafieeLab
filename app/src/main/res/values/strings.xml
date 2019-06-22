@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Embryo Imaging (Shafiee Lab)</string>
+    <string name="app_name">Embryo Imaging</string>
 
     <array name="menuOptions">
         <item>Home</item>
@@ -33,6 +33,9 @@
     <string name="title_activity_standalone">StandaloneActivity</string>
     <string name="title_activity_smartphone">SmartphoneActivity</string>
     <string name="title_activity_smartphone_kt">SmartphoneActivity_kt</string>
+    <string name="patient_id">Patient ID:</string>
+    <string name="shafiee_lab">(Shafiee Lab)</string>
+    <string name="embryo_imaging_app">Embryo Imaging App</string>
 
 
 </resources>

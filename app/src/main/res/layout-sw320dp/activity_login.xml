@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".login.LoginActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/cardview_shadow_end_color">
+
+        <edu.harvard.bwh.shafieelab.embryoimaging.customfonts.MyTextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20sp"
+            android:gravity="center"
+            android:text="@string/embryo_imaging_app"
+            android:textColor="#000"
+            android:textSize="34sp" />
+
+
+        <edu.harvard.bwh.shafieelab.embryoimaging.customfonts.MyTextView
+            android:id="@+id/title2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/shafiee_lab"
+            android:textColor="#000"
+            android:textSize="20sp"
+
+            />
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:paddingBottom="30dp">
+
+
+        <edu.harvard.bwh.shafieelab.embryoimaging.customfonts.MyTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:lines="1"
+
+            android:text="Embryo image capturing and"
+            android:textColor="#9d9ea0"
+
+            />
+
+        <edu.harvard.bwh.shafieelab.embryoimaging.customfonts.MyTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:lines="2"
+            android:paddingBottom="21dp"
+            android:text="AI based prediction app"
+            android:textColor="#9d9ea0"
+
+            />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:orientation="horizontal">
+
+
+            <edu.harvard.bwh.shafieelab.embryoimaging.customfonts.MyTextView
+                android:id="@+id/embryologist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/rect"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Embryologist"
+                android:textColor="#fff"
+                android:textSize="16dp" />
+
+
+            <edu.harvard.bwh.shafieelab.embryoimaging.customfonts.MyTextView
+                android:id="@+id/admin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/rect2"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Admin"
+                android:textColor="#fff"
+                android:textSize="16dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
+
+
+

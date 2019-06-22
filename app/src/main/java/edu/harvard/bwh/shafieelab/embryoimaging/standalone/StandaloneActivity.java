@@ -1,31 +1,15 @@
 package edu.harvard.bwh.shafieelab.embryoimaging.standalone;
 
+import android.Manifest;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.Target;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.jsibbold.zoomage.ZoomageView;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.os.Environment;
 import android.text.InputType;
 import android.util.Log;
@@ -38,6 +22,25 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.jsibbold.zoomage.ZoomageView;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
 import org.json.JSONObject;
 
 import java.io.File;
@@ -49,7 +52,6 @@ import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import edu.harvard.bwh.shafieelab.embryoimaging.EndPoints;
 import edu.harvard.bwh.shafieelab.embryoimaging.R;
-import edu.harvard.bwh.shafieelab.embryoimaging.navigation.Duo;
 
 public class StandaloneActivity extends AppCompatActivity {
 
@@ -61,6 +63,10 @@ public class StandaloneActivity extends AppCompatActivity {
 
     Button StartButton ;
     ImageButton retakebutton;
+
+    FloatingActionButton fab;
+
+    private String TAG = "STANDALONE";
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -100,18 +106,7 @@ public class StandaloneActivity extends AppCompatActivity {
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-        FloatingActionButton fab = findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -193,14 +188,23 @@ public class StandaloneActivity extends AppCompatActivity {
     }
 
 
+    public boolean isStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Log.v(TAG, "Permission is granted");
+                return true;
+            } else {
 
-
-
-
-
-
-
-
+                Log.v(TAG, "Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        } else { //permission is automatically granted on sdk<23 upon installation
+            Log.v(TAG, "Permission is granted");
+            return true;
+        }
+    }
 
 
 
@@ -211,7 +215,6 @@ public class StandaloneActivity extends AppCompatActivity {
 
 
     private void showAlert(){
-
 
 
 
@@ -234,16 +237,9 @@ public class StandaloneActivity extends AppCompatActivity {
                 if(!ID.equals(""))
                 {
 //                    callpic();
-                    EmbryoImage.setImageResource(0);
 
-                    IDVIEW.setText("Subject ID:  "+ID);
 
-                    IDVIEW.setVisibility(View.VISIBLE);
-                    StartButton.setVisibility(View.VISIBLE);
-                    retakebutton.setVisibility(View.GONE);
-
-                    File folder = new File(Environment.getExternalStorageDirectory().toString()+"/Embryo Images/Standalone/"+ID);
-                    folder.mkdirs();
+                    checkslide();
 
 //                        TODO
 //                    getImage();
@@ -268,19 +264,114 @@ public class StandaloneActivity extends AppCompatActivity {
 
     }
 
+    private void showerroralert() {
 
 
+        new AlertDialog.Builder(this)
+                .setTitle("No connection!")
+                .setMessage("Please make show Standalone device is connected.")
+
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
 
 
+                        progressBar.setVisibility(View.GONE);
+
+                        StartButton.setEnabled(true);
+                        // Continue with delete operation
+                    }
+                })
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
 
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Log.v(TAG, "Permission: " + permissions[0] + "was " + grantResults[0]);
+            //resume tasks needing this permission
+
+            getdirectimage();
+        }
+    }
 
 
+    private void checkslide() {
+        final String[] checked_slide = {"init"};
 
 
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        progressBar.setVisibility(View.VISIBLE);
+
+        fab.setEnabled(false);
 
 
+        try {
 
+            RequestParams params = new RequestParams();
+            params.put("slide", ID);
+//        params.put("more", "data");
+
+            client.get(getApplicationContext(), EndPoints.URL_check_slide, params,
+                    new AsyncHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+                            progressBar.setVisibility(View.GONE);
+                            fab.setEnabled(true);
+
+
+                            System.out.println(new String(responseBody));
+
+
+                            checked_slide[0] = new String(responseBody);
+                            Toast.makeText(getApplicationContext(), checked_slide[0], Toast.LENGTH_SHORT).show();
+                            if (checked_slide[0].equals("Embryo dish ID matched")) {
+
+                                EmbryoImage.setImageResource(0);
+
+                                IDVIEW.setText("Subject ID:  " + ID);
+
+                                IDVIEW.setVisibility(View.VISIBLE);
+                                StartButton.setVisibility(View.VISIBLE);
+                                retakebutton.setVisibility(View.GONE);
+
+                                File folder = new File(Environment.getExternalStorageDirectory().toString() + "/Embryo Images/Standalone/" + ID);
+                                folder.mkdirs();
+                            } else {
+                                showAlert();
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+
+                            progressBar.setVisibility(View.GONE);
+
+                            showerroralert();
+                            fab.setEnabled(true);
+
+
+                        }
+                    });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+//    return checked_slide[0];
+
+    }
 
 
 
@@ -293,6 +384,12 @@ public class StandaloneActivity extends AppCompatActivity {
 //                //.load(mImageUri) // Load image from assets
 //                .load(EndPoints.URL_get_image) // Image URL
 //                .into(EmbryoImage); // ImageView to display image
+
+
+        if (!isStoragePermissionGranted()) {
+            return;
+        }
+
 
 
 
@@ -312,9 +409,11 @@ public class StandaloneActivity extends AppCompatActivity {
         Glide.with(getApplicationContext())
                 .load(EndPoints.URL_get_image+ID)
                 .apply(requestOptions)
+                .error(R.drawable.error)
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        showerroralert();
                         return false;
                     }
 
@@ -444,7 +543,20 @@ public class StandaloneActivity extends AppCompatActivity {
         Glide.with(getApplicationContext())
                 .load(imageUri)
                 .apply(requestOptions)
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        //on load failed
+                        Log.d(TAG, e.getMessage());
+                        return false;
+                    }
 
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        //on load success
+                        return false;
+                    }
+                })
                 .into(EmbryoImage)
         ;
         progressBar.setVisibility(View.GONE);
