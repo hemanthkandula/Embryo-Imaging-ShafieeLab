@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,19 +6,21 @@
 
 
     <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:background="@drawable/teacherbg"
-        android:scaleType="centerCrop"
+        android:id="@+id/frame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/doctor_acc"
+        android:scaleType="centerInside"
 
-        ></FrameLayout>
+        />
 
 
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/linear3"
+        android:layout_below="@id/frame"
         android:orientation="vertical">
 
         <edu.harvard.bwh.shafieelab.embryoimaging.customfonts.MyTextView
@@ -28,9 +28,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Teacher Login"
+            android:text="@string/embryologist_login"
             android:textColor="#4c565f"
-            android:textSize="29dp"
+            android:textSize="29sp"
 
             />
 
@@ -50,13 +50,13 @@
                 android:background="#0000"
                 android:drawableLeft="@drawable/user"
                 android:drawablePadding="12dp"
-                android:gravity="left"
+                android:gravity="start"
                 android:hint="Email"
                 android:maxLength="12"
-                android:padding="12dp"
+                android:padding="16dp"
                 android:textColor="@color/colortext"
                 android:textColorHint="@color/colorhint"
-                android:textSize="16dp"
+                android:textSize="16sp"
 
 
                 />
@@ -68,7 +68,7 @@
             android:layout_height="1dp"
             android:layout_marginLeft="56dp"
             android:layout_marginRight="56dp"
-            android:background="#59d58d" />
+            android:background="@color/colorAccent" />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -86,14 +86,14 @@
                 android:layout_marginLeft="46dp"
                 android:layout_marginRight="46dp"
                 android:background="#0000"
-                android:drawableLeft="@drawable/pass"
+                android:drawableStart="@drawable/pass"
                 android:drawablePadding="12dp"
-                android:hint="Password"
+                android:hint="@string/password"
                 android:inputType="textPassword"
-                android:padding="12dp"
+                android:padding="16dp"
                 android:textColor="@color/colortext"
                 android:textColorHint="@color/colorhint"
-                android:textSize="16dp"
+                android:textSize="16sp"
 
 
                 />
@@ -104,13 +104,13 @@
             android:layout_height="1dp"
             android:layout_marginLeft="56dp"
             android:layout_marginRight="56dp"
-            android:background="#59d58d" />
+            android:background="@color/colorAccent" />
 
         <LinearLayout
             android:id="@+id/linear4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:orientation="horizontal"
 
             >
@@ -119,13 +119,13 @@
                 android:id="@+id/remember"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
+                android:layout_marginStart="60dp"
                 android:layout_weight="2"
                 android:buttonTint="@color/colorhint"
                 android:checked="false"
-                android:text="Remember me"
+                android:text="@string/remember_me"
                 android:textColor="@color/colorhint"
-                android:textSize="11dp"
+                android:textSize="11sp"
 
 
                 />
@@ -136,9 +136,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="2.3"
-                android:text="Forgot password?"
+                android:text="@string/forgot_password"
                 android:textColor="@color/colorhint"
-                android:textSize="11dp"
+                android:textSize="11sp"
 
                 />
 
@@ -152,91 +152,92 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="60dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginRight="60dp"
-            android:layout_marginBottom="6dp"
+            android:layout_marginBottom="11dp"
             android:background="@drawable/rect1"
             android:elevation="3dp"
             android:gravity="center"
-            android:padding="8dp"
-            android:text="Sign in"
+            android:padding="12dp"
+            android:text="@string/sign_in"
             android:textColor="#fff"
-            android:textSize="16dp"
+            android:textSize="16sp"
 
 
             />
 
 
-        <edu.harvard.bwh.shafieelab.embryoimaging.customfonts.MyTextView
-            android:id="@+id/or"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/acc"
-            android:gravity="center"
-            android:lines="1"
-            android:text="or"
-            android:textColor="@color/colorhint"
+        <!--<edu.harvard.bwh.shafieelab.embryoimaging.customfonts.MyTextView-->
+        <!--android:id="@+id/or"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@+id/acc"-->
+        <!--android:layout_marginBottom="5dp"-->
+        <!--android:gravity="center"-->
+        <!--android:lines="1"-->
+        <!--android:text="or"-->
+        <!--android:textColor="@color/colorhint"-->
 
 
-            />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/linear3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="16dp"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_weight="1"
-            android:background="@drawable/rectfb"
-            android:orientation="horizontal"
-
-
-            >
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:src="@drawable/fb"
-
-                />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_weight="1"
-            android:background="@drawable/rectgoogle"
-            android:orientation="horizontal"
-
-            >
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:src="@drawable/google"
-
-                />
-
-        </LinearLayout>
-
+        <!--/>-->
 
     </LinearLayout>
+
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/linear3"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_marginBottom="16dp"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="30dp"-->
+    <!--android:layout_marginRight="30dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:background="@drawable/rectfb"-->
+    <!--android:orientation="horizontal"-->
+
+
+    <!--&gt;-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:padding="12dp"-->
+    <!--android:src="@drawable/fb"-->
+
+    <!--/>-->
+
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="30dp"-->
+    <!--android:layout_marginRight="30dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:background="@drawable/rectgoogle"-->
+    <!--android:orientation="horizontal"-->
+
+    <!--&gt;-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:padding="12dp"-->
+    <!--android:src="@drawable/google"-->
+
+    <!--/>-->
+
+    <!--</LinearLayout>-->
+
+
+    <!--</LinearLayout>-->
 
 
 </RelativeLayout>

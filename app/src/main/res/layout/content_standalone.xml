@@ -34,6 +34,7 @@
             android:layout_above="@id/retake"
             android:layout_below="@id/ID"
             android:layout_marginTop="16dp"
+            android:visibility="visible"
 
             android:layout_marginBottom="8dp"
             app:zoomage_animateOnReset="true"
@@ -49,6 +50,33 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ID"
             app:layout_constraintVertical_bias="0.32" />
+
+
+        <!--<com.facebook.drawee.view.SimpleDraweeView-->
+        <!--android:id="@+id/my_image_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="442dp"-->
+        <!--android:layout_above="@id/retake"-->
+        <!--android:layout_below="@id/ID"-->
+        <!--android:layout_marginTop="16dp"-->
+
+        <!--android:layout_marginBottom="8dp"-->
+        <!--app:zoomage_animateOnReset="true"-->
+        <!--app:zoomage_autoCenter="true"-->
+        <!--app:zoomage_autoResetMode="UNDER"-->
+        <!--app:zoomage_maxScale="8"-->
+        <!--app:zoomage_minScale="0.6"-->
+        <!--app:zoomage_restrictBounds="false"-->
+        <!--app:zoomage_translatable="true"-->
+        <!--app:zoomage_zoomable="true"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/start"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/ID"-->
+        <!--app:layout_constraintVertical_bias="0.32"-->
+
+
+        <!--/>-->
 
 
         <TextView

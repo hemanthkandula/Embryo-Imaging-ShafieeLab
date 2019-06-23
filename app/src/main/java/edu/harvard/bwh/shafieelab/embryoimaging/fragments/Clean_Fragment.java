@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import edu.harvard.bwh.shafieelab.embryoimaging.R;
 import edu.harvard.bwh.shafieelab.embryoimaging.navigation.Duo;
+import edu.harvard.bwh.shafieelab.embryoimaging.samples.activities.MainActivity;
 import edu.harvard.bwh.shafieelab.embryoimaging.smartphone.SmartphoneActivity;
 import edu.harvard.bwh.shafieelab.embryoimaging.standalone.StandaloneActivity;
 
@@ -40,9 +41,13 @@ public class Clean_Fragment extends Fragment {
             public void onClick(View v) {
 
 
-                ((Duo)getActivity()).gotofrag(new Clean_Fragment(),4,false);
-                getActivity().getFragmentManager().popBackStack();
+//                ((Duo)getActivity()).gotofrag(new Clean_Fragment(),4,false);
+//                getActivity().getFragmentManager().popBackStack();
 
+
+                startActivity(new Intent(getActivity(), MainActivity.class));
+
+                getActivity().getFragmentManager().popBackStack();
 
             }
         });

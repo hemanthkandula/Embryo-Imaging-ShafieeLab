@@ -19,6 +19,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -85,6 +90,42 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.31'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'
     implementation 'com.otaliastudios:cameraview:2.0.0-beta05'
+    implementation 'com.facebook.fresco:fresco:2.0.0'
+
+
+
+
+
+
+
+
+
+
+
+//gallery//
+
+
+    implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha06'
+    implementation 'androidx.preference:preference:1.1.0-beta01'
+    implementation 'androidx.appcompat:appcompat:1.1.0-beta01'
+    implementation 'androidx.palette:palette:1.0.0'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha01'
+
+    implementation 'com.squareup.okhttp:okhttp:2.7.5'
+    implementation 'com.squareup.okhttp:okhttp-urlconnection:2.7.5'
+
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    annotationProcessor 'com.contentful.vault:compiler:3.2.1'
+    annotationProcessor 'com.contentful.vault:core:3.2.1'
+
+    implementation 'com.contentful.vault:core:3.2.1'
+
+    annotationProcessor 'org.parceler:parceler:1.1.12'
+    implementation 'org.parceler:parceler-api:1.1.12'
 
 }
 repositories {

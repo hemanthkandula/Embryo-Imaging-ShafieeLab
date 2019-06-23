@@ -50,4 +50,9 @@
     <dimen name="rect_button_width">80dp</dimen>
     <dimen name="rect_button_height">24dp</dimen>
     <dimen name="shutter_button_margin">80dp</dimen>
+
+
+    <dimen name="fab_size">44dp</dimen>
+    <dimen name="button_elevation">4dp</dimen>
+    <dimen name="button_press_elevation">8dp</dimen>
 </resources>

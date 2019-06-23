@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardBackgroundColor="#fff"
+    app:cardCornerRadius="2dp"
+    app:cardUseCompatPadding="true">
+
+    <edu.harvard.bwh.shafieelab.embryoimaging.samples.ui.GridImageView
+        android:id="@+id/photo"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+</androidx.cardview.widget.CardView>
+

@@ -1,0 +1,52 @@
+package edu.harvard.bwh.shafieelab.embryoimaging.samples.activities;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import edu.harvard.bwh.shafieelab.embryoimaging.R;
+
+public class AboutActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_about);
+        ButterKnife.bind(this);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @SuppressWarnings("unused")
+    @OnClick({R.id.btn_faq, R.id.btn_feedback, R.id.btn_contact, R.id.btn_license})
+    void onClickButton(View view) {
+        int urlResId;
+
+        switch (view.getId()) {
+            case R.id.btn_faq:
+                urlResId = R.string.url_faq;
+                break;
+
+            case R.id.btn_feedback:
+                urlResId = R.string.url_feedback;
+                break;
+
+            case R.id.btn_contact:
+                urlResId = R.string.url_contact;
+                break;
+
+            case R.id.btn_license:
+                urlResId = R.string.url_licensing;
+                break;
+
+            default:
+                return;
+        }
+
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(urlResId))));
+    }
+}

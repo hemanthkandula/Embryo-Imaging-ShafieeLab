@@ -68,6 +68,7 @@ public class StandaloneActivity extends AppCompatActivity {
 
     private String TAG = "STANDALONE";
 
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -130,10 +131,42 @@ public class StandaloneActivity extends AppCompatActivity {
         Menu menu = toolbar.getMenu();
 
 
-
-
-
-
+//
+//        Uri uri = Uri.parse(EndPoints.URL_get_image+"embryo5");
+//        SimpleDraweeView draweeView = (SimpleDraweeView) findViewById(R.id.my_image_view);
+////        draweeView.setImageURI(uri);
+//
+//
+//
+//
+//
+//
+//
+//
+//        ControllerListener<ImageInfo> listener = new BaseControllerListener<ImageInfo>() {
+//
+//            @Override
+//            public void onFinalImageSet(String id, @Nullable ImageInfo imageInfo, @Nullable Animatable animatable) {
+//                //Action on final image load
+//            }
+//            @Override
+//            public void onFailure(String id, Throwable throwable) {
+//                //Action on failure
+//            }
+//
+//        };
+//        DraweeController controller = Fresco.newDraweeControllerBuilder()
+//                .setUri(uri)
+//                .setControllerListener(listener)
+//                .build();
+//
+//        draweeView.setController(controller);
+//
+//
+//        ImagePipeline imagePipeline = Fresco.getImagePipeline();
+//
+//
+//        imagePipeline.clearCaches();
 
 
 
@@ -418,44 +451,61 @@ public class StandaloneActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                    public boolean onResourceReady(final Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                         progressBar.setVisibility(View.GONE);
-                        Bitmap bmp = ((BitmapDrawable)resource).getBitmap();
-
-                        String path = Environment.getExternalStorageDirectory().toString()+"/Embryo Images/Standalone/"+ID+"/";
-
-                        File directory = new File(path);
-                        if (!directory.exists()) {
-                            boolean success = directory.mkdirs();
-                            if(success){
-                                Log.d("dire","Created");
-                            }
-
-                        }
-                        File[] files = directory.listFiles();
-
-
-                        File file = new File(path, ID+"_"+files.length+".png");
-                        FileOutputStream out = null;
-                        try {
-                            out = new FileOutputStream(file);
-                            bmp.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
-                            // PNG is a lossless format, the compression factor (100) is ignored
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        } finally {
-                            try {
-                                if (out != null) {
-                                    out.close();
-                                }
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
 
                         StartButton.setVisibility(View.GONE);
                         retakebutton.setVisibility(View.VISIBLE);
+
+
+                        Runnable r = new Runnable() {
+                            @Override
+                            public void run() {
+
+
+                                Bitmap bmp = ((BitmapDrawable) resource).getBitmap();
+
+                                String path = Environment.getExternalStorageDirectory().toString() + "/Embryo Images/Standalone/" + ID + "/";
+
+                                File directory = new File(path);
+                                if (!directory.exists()) {
+                                    boolean success = directory.mkdirs();
+                                    if (success) {
+                                        Log.d("dire", "Created");
+                                    }
+
+                                }
+                                File[] files = directory.listFiles();
+
+
+                                File file = new File(path, ID + "_" + files.length + ".png");
+                                FileOutputStream out = null;
+                                try {
+                                    out = new FileOutputStream(file);
+                                    bmp.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
+                                    // PNG is a lossless format, the compression factor (100) is ignored
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                } finally {
+                                    try {
+                                        if (out != null) {
+                                            out.close();
+                                        }
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+
+                            }
+                        };
+
+                        Thread t = new Thread(r);
+                        t.start();
+
+
+
+
 
 
 
