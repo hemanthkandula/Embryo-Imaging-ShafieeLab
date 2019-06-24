@@ -231,7 +231,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/results"
+                android:id="@+id/ip"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -241,14 +241,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    app:srcCompat="@drawable/ic_history" />
+                    app:srcCompat="@drawable/ip" />
 
                 <edu.harvard.bwh.shafieelab.embryoimaging.customfonts.MyTextView_Roboto_Regular
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="5dp"
-                    android:text="Results"
+                    android:text="Edit IP"
                     android:textColor="@color/secondarytext"
                     android:textSize="13dp" />
             </LinearLayout>

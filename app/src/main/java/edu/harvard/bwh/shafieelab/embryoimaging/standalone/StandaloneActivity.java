@@ -2,6 +2,7 @@ package edu.harvard.bwh.shafieelab.embryoimaging.standalone;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -69,6 +70,12 @@ public class StandaloneActivity extends AppCompatActivity {
     private String TAG = "STANDALONE";
 
 
+    SharedPreferences pref;
+    String URL_DOMAIN;
+
+
+
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -89,6 +96,11 @@ public class StandaloneActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
 
         toolbar.inflateMenu(R.menu.standalone_menu);
+
+
+        pref = getApplicationContext().getSharedPreferences("IP", 0); // 0 - for private mode
+
+        URL_DOMAIN = "http://" + pref.getString("IP", null);         // getting String
 
 //        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
 //        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -352,7 +364,8 @@ public class StandaloneActivity extends AppCompatActivity {
             params.put("slide", ID);
 //        params.put("more", "data");
 
-            client.get(getApplicationContext(), EndPoints.URL_check_slide, params,
+
+            client.get(getApplicationContext(), URL_DOMAIN + EndPoints.URL_check_slide, params,
                     new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -440,7 +453,7 @@ public class StandaloneActivity extends AppCompatActivity {
         StartButton.setEnabled(false);
 
         Glide.with(getApplicationContext())
-                .load(EndPoints.URL_get_image+ID)
+                .load(URL_DOMAIN + EndPoints.URL_get_image + ID)
                 .apply(requestOptions)
                 .error(R.drawable.error)
                 .listener(new RequestListener<Drawable>() {
@@ -644,7 +657,7 @@ public class StandaloneActivity extends AppCompatActivity {
             StringEntity entity = new StringEntity(jsonParams.toString());
 
 
-            client.post(getApplicationContext(), EndPoints.URL_get_image2, entity, "application/json",
+            client.post(getApplicationContext(), URL_DOMAIN + EndPoints.URL_get_image2, entity, "application/json",
                     new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -653,7 +666,7 @@ public class StandaloneActivity extends AppCompatActivity {
                             Bitmap bmp = BitmapFactory.decodeByteArray(responseBody, 0, responseBody.length);
 
 //                            EmbryoImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, EmbryoImage.getWidth(),
-//                                    EmbryoImage.getHeight(), false));
+//                                    EmbryoImage.getHeht(), false));
 
 
 

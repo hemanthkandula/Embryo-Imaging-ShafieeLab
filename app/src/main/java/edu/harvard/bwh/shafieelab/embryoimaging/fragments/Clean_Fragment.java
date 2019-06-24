@@ -1,13 +1,18 @@
 package edu.harvard.bwh.shafieelab.embryoimaging.fragments;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import edu.harvard.bwh.shafieelab.embryoimaging.R;
@@ -66,14 +71,14 @@ public class Clean_Fragment extends Fragment {
         });
 
 
-        LinearLayout Results = view.findViewById(R.id.results);
+        LinearLayout Results = view.findViewById(R.id.ip);
         Results.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                showAlert();
 
-                ((Duo)getActivity()).gotofrag(new Clean_Fragment(),5,false);
-                getActivity().getFragmentManager().popBackStack();
+
 
 
             }
@@ -131,11 +136,71 @@ public class Clean_Fragment extends Fragment {
         });
 
 
+        SharedPreferences pref = getActivity().getSharedPreferences("IP", 0); // 0 - for private mode
+        String IP = pref.getString("IP", null); // getting String
+        if (IP == null || IP.equals("")) {
+            showAlert();
+
+
+        }
+
+
+
         return view;
 
 
 
     }
+
+
+    private void showAlert() {
+
+        SharedPreferences pref = getActivity().getSharedPreferences("IP", 0); // 0 - for private mode
+        String IP = pref.getString("IP", null); // getting String
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Enter IP address:");
+        if (IP != null) {
+            builder.setMessage("Current IP address is:" + IP);
+        }
+
+        final EditText input = new EditText(getActivity());
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String IP = input.getText().toString();
+
+
+                if (!IP.equals("")) {
+
+                    SharedPreferences pref = getActivity().getSharedPreferences("IP", 0); // 0 - for private mode
+                    SharedPreferences.Editor editor = pref.edit();
+
+                    editor.putString("IP", IP); // Storing string
+                    editor.apply(); // commit changes
+
+                } else showAlert();
+
+
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.setCancelable(false);
+        builder.show();
+
+    }
+
+
+
 
 
 }
