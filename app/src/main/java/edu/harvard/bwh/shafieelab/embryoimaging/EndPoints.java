@@ -29,6 +29,7 @@ public class EndPoints {
     public static final String URL_reset_slide = "/reset_slide";
 
     public static final String URL_check_slide = "/check_slide";
+    public static final String URL_led_ctl = "/led";
 
 
 

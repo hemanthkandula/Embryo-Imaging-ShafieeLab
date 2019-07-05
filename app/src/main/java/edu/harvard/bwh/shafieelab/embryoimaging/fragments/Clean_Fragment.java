@@ -9,10 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import edu.harvard.bwh.shafieelab.embryoimaging.R;
@@ -98,14 +98,11 @@ public class Clean_Fragment extends Fragment {
         });
 
 
+        CardView card_view_standalone = view.findViewById(R.id.card_view_standalone);
 
+//        ImageView imageView_hba = view.findViewById(R.id.image_standalone);
 
-
-
-
-        ImageView imageView_hba = view.findViewById(R.id.image_standalone);
-
-        imageView_hba.setOnClickListener(new View.OnClickListener() {
+        card_view_standalone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -118,10 +115,10 @@ public class Clean_Fragment extends Fragment {
         });
 
 
+        CardView card_view_smartphone = view.findViewById(R.id.card_view_smartphone);
 
-        ImageView imageView_dna = view.findViewById(R.id.image_smartphone);
 
-        imageView_dna.setOnClickListener(new View.OnClickListener() {
+        card_view_smartphone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

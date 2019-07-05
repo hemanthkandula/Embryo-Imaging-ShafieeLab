@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -49,10 +50,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import edu.harvard.bwh.shafieelab.embryoimaging.EndPoints;
 import edu.harvard.bwh.shafieelab.embryoimaging.R;
+
+import static edu.harvard.bwh.shafieelab.embryoimaging.EndPoints.URL_led_ctl;
 
 public class StandaloneActivity extends AppCompatActivity {
 
@@ -72,6 +76,8 @@ public class StandaloneActivity extends AppCompatActivity {
 
     SharedPreferences pref;
     String URL_DOMAIN;
+
+    Boolean Connection = false;
 
 
 
@@ -101,6 +107,7 @@ public class StandaloneActivity extends AppCompatActivity {
         pref = getApplicationContext().getSharedPreferences("IP", 0); // 0 - for private mode
 
         URL_DOMAIN = "http://" + pref.getString("IP", null);         // getting String
+
 
 //        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
 //        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -202,32 +209,169 @@ public class StandaloneActivity extends AppCompatActivity {
         });
 
 
+        show_connection_alert();
 
 
 
-        if(ID== null )
 
-            showAlert();
-        else {
-            if(ID.equals(""))
-                showAlert();
-            else{
-                EmbryoImage.setImageResource(0);
+
+
+
+
+
+    }
+
+    private void show_connection_alert() {
+
+
+        SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setTitleText("Connecting");
+        pDialog.setCancelable(false);
+        pDialog.show();
+
+
+        RequestParams params = new RequestParams();
+        AsyncHttpClient client = new AsyncHttpClient();
+        params.put("state", "on");
+
+
+        client.get(getApplicationContext(), URL_DOMAIN + URL_led_ctl, params,
+                new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        pDialog.dismissWithAnimation();
+
+                        SweetAlertDialog sDialog = new SweetAlertDialog(StandaloneActivity.this, SweetAlertDialog.SUCCESS_TYPE);
+                        sDialog.setTitleText("Connection Successful")
+                                .setContentText("Standalone device connected")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        sDialog.dismissWithAnimation();
+                                        Connection = true;
+                                        if (ID == null)
+
+                                            showAlert();
+                                        else {
+                                            if (ID.equals(""))
+                                                showAlert();
+                                            else {
+                                                EmbryoImage.setImageResource(0);
 
 //                getimageloc();
-                IDVIEW.setText("Patient ID:  "+ID);
+                                                IDVIEW.setText("Patient ID:  " + ID);
 
-                File folder = new File(Environment.getExternalStorageDirectory().toString()+"/Embryo Images/Standalone/"+ID);
-                folder.mkdirs();
+                                                File folder = new File(Environment.getExternalStorageDirectory().toString() + "/Embryo Images/Standalone/" + ID);
+                                                folder.mkdirs();
 
-                reloadview.setVisibility(View.GONE);
-                retakebutton.setVisibility(View.GONE);
+                                                reloadview.setVisibility(View.GONE);
+                                                retakebutton.setVisibility(View.GONE);
 
-            }}
+                                            }
+                                        }
+                                    }
+                                })
+                                .show();
 
 
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
 
+                        pDialog.dismissWithAnimation();
+                        Connection = false;
+
+
+                        SweetAlertDialog fDialog = new SweetAlertDialog(StandaloneActivity.this, SweetAlertDialog.ERROR_TYPE);
+                        fDialog.setTitleText("Oops...")
+                                .setContentText("Unable to connect to device")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                        fDialog.dismissWithAnimation();
+                                        onBackPressed();
+
+                                    }
+                                })
+                                .show();
+
+                    }
+                });
+
+
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
+
+        if (!Connection) {
+            super.onBackPressed();  // optional depending on your needs
+
+        } else {
+
+
+            SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+            pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+            pDialog.setTitleText("Disconnecting...");
+            pDialog.setCancelable(false);
+            pDialog.show();
+
+
+            RequestParams params = new RequestParams();
+            AsyncHttpClient client = new AsyncHttpClient();
+            params.put("state", "off");
+
+            client.get(getApplicationContext(), URL_DOMAIN + URL_led_ctl, params,
+                    new AsyncHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                            pDialog.dismissWithAnimation();
+
+                            SweetAlertDialog sDialog = new SweetAlertDialog(StandaloneActivity.this, SweetAlertDialog.SUCCESS_TYPE);
+                            sDialog.setTitleText("Successfully Disconnected!")
+                                    .setContentText("Standalone device connected")
+
+                                    .show();
+
+                            sDialog.dismissWithAnimation();
+
+                            Connection = false;
+                            onBackPressed();
+
+
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                            pDialog.dismissWithAnimation();
+                            Connection = false;
+
+
+                            SweetAlertDialog fDialog = new SweetAlertDialog(StandaloneActivity.this, SweetAlertDialog.ERROR_TYPE);
+                            fDialog.setTitleText("Oops... Failed to disconnect")
+                                    .setContentText("Something went wrong")
+                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                            fDialog.dismissWithAnimation();
+                                            Connection = false;
+                                            onBackPressed();
+
+                                        }
+                                    })
+                                    .show();
+
+                        }
+                    });
+
+
+        }
 
 
     }
