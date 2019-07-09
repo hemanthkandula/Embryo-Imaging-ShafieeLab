@@ -130,7 +130,8 @@ public class StandaloneActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showAlert();
+//                showAlert();
+                checkslide();
             }
         });
         progressBar = findViewById(R.id.progressBar);
@@ -252,10 +253,11 @@ public class StandaloneActivity extends AppCompatActivity {
                                         Connection = true;
                                         if (ID == null)
 
-                                            showAlert();
+                                            checkslide();
                                         else {
                                             if (ID.equals(""))
-                                                showAlert();
+//                                                showAlert();
+                                                checkslide();
                                             else {
                                                 EmbryoImage.setImageResource(0);
 
@@ -432,8 +434,8 @@ public class StandaloneActivity extends AppCompatActivity {
 
 //                        TODO
 //                    getImage();
-                }
-                else showAlert();
+                } else checkslide();
+//                    showAlert();
 
 
                 //         getImage();
@@ -497,15 +499,18 @@ public class StandaloneActivity extends AppCompatActivity {
 
         AsyncHttpClient client = new AsyncHttpClient();
 
-        progressBar.setVisibility(View.VISIBLE);
-
+        SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setTitleText("Retrieving slide ID");
+        pDialog.setCancelable(false);
+        pDialog.show();
         fab.setEnabled(false);
 
 
         try {
 
             RequestParams params = new RequestParams();
-            params.put("slide", ID);
+            params.put("slide", "jj");
 //        params.put("more", "data");
 
 
@@ -523,7 +528,11 @@ public class StandaloneActivity extends AppCompatActivity {
 
                             checked_slide[0] = new String(responseBody);
                             Toast.makeText(getApplicationContext(), checked_slide[0], Toast.LENGTH_SHORT).show();
-                            if (checked_slide[0].equals("Embryo dish ID matched")) {
+                            if (checked_slide[0].contains("Embryo dish ID is:")) {
+
+                                ID = checked_slide[0].replace("Embryo dish ID is: ", "");
+
+//                            if (checked_slide[0].equals("Embryo dish ID matched")) {
 
                                 EmbryoImage.setImageResource(0);
 
@@ -535,10 +544,62 @@ public class StandaloneActivity extends AppCompatActivity {
 
                                 File folder = new File(Environment.getExternalStorageDirectory().toString() + "/Embryo Images/Standalone/" + ID);
                                 folder.mkdirs();
-                            } else {
-                                showAlert();
-                            }
+//                            } else {
+//                                showAlert();
+//                            }
 
+
+                                pDialog.dismissWithAnimation();
+
+                                SweetAlertDialog sDialog = new SweetAlertDialog(StandaloneActivity.this, SweetAlertDialog.SUCCESS_TYPE);
+                                sDialog.setTitleText("Slide ID retrieved ")
+                                        .setContentText(ID)
+                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(SweetAlertDialog sDialog) {
+                                                sDialog.dismissWithAnimation();
+                                                Connection = true;
+                                                if (ID == null)
+
+                                                    checkslide();
+                                                else {
+                                                    if (ID.equals(""))
+//                                                showAlert();
+                                                        checkslide();
+                                                    else {
+                                                        EmbryoImage.setImageResource(0);
+
+//                getimageloc();
+                                                        IDVIEW.setText("Patient ID:  " + ID);
+
+                                                        File folder = new File(Environment.getExternalStorageDirectory().toString() + "/Embryo Images/Standalone/" + ID);
+                                                        folder.mkdirs();
+
+                                                        reloadview.setVisibility(View.GONE);
+                                                        retakebutton.setVisibility(View.GONE);
+
+                                                    }
+                                                }
+                                            }
+                                        })
+                                        .show();
+
+                            } else {
+
+                                SweetAlertDialog fDialog = new SweetAlertDialog(StandaloneActivity.this, SweetAlertDialog.ERROR_TYPE);
+                                fDialog.setTitleText("Failed to retrieve Dish ID")
+                                        .setContentText("Server side error!")
+                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                fDialog.dismissWithAnimation();
+                                                onBackPressed();
+
+                                            }
+                                        })
+                                        .show();
+
+                            }
 
                         }
 
@@ -548,7 +609,26 @@ public class StandaloneActivity extends AppCompatActivity {
 
                             progressBar.setVisibility(View.GONE);
 
-                            showerroralert();
+
+                            pDialog.dismissWithAnimation();
+//                            Connection = false;
+
+
+                            SweetAlertDialog fDialog = new SweetAlertDialog(StandaloneActivity.this, SweetAlertDialog.ERROR_TYPE);
+                            fDialog.setTitleText("Failed to retrieve Dish ID")
+                                    .setContentText("Check if embryo dish is placed")
+                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                            fDialog.dismissWithAnimation();
+                                            onBackPressed();
+
+                                        }
+                                    })
+                                    .show();
+
+
+//                            showerroralert();
                             fab.setEnabled(true);
 
 
@@ -603,7 +683,20 @@ public class StandaloneActivity extends AppCompatActivity {
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        showerroralert();
+                        SweetAlertDialog fDialog = new SweetAlertDialog(StandaloneActivity.this, SweetAlertDialog.ERROR_TYPE);
+                        fDialog.setTitleText("Failed to load Image")
+                                .setContentText("Please try again!")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                        fDialog.dismissWithAnimation();
+//                                        onBackPressed();
+
+                                    }
+                                })
+                                .show();
+
+
                         return false;
                     }
 
@@ -969,10 +1062,12 @@ public class StandaloneActivity extends AppCompatActivity {
 
         if(ID== null )
 
-            showAlert();
+//            showAlert();
+            checkslide();
         else {
             if(ID.equals(""))
-                showAlert();
+//                showAlert();
+                checkslide();
             else{
                 EmbryoImage.setImageResource(0);
 
