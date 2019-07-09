@@ -79,6 +79,7 @@ public class StandaloneActivity extends AppCompatActivity {
 
     Boolean Connection = false;
 
+    Boolean RFID;
 
 
 
@@ -108,6 +109,7 @@ public class StandaloneActivity extends AppCompatActivity {
 
         URL_DOMAIN = "http://" + pref.getString("IP", null);         // getting String
 
+        RFID = pref.getBoolean("RFID", false);
 
 //        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
 //        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -306,6 +308,26 @@ public class StandaloneActivity extends AppCompatActivity {
 
     }
 
+    private void DontCheckSlide() {
+
+
+        progressBar.setVisibility(View.GONE);
+        fab.setEnabled(true);
+
+
+        EmbryoImage.setImageResource(0);
+
+        IDVIEW.setText("Subject ID:  " + ID);
+
+        IDVIEW.setVisibility(View.VISIBLE);
+        StartButton.setVisibility(View.VISIBLE);
+        retakebutton.setVisibility(View.GONE);
+
+        File folder = new File(Environment.getExternalStorageDirectory().toString() + "/Embryo Images/Standalone/" + ID);
+        folder.mkdirs();
+
+
+    }
 
     @Override
     public void onBackPressed() {
@@ -416,6 +438,7 @@ public class StandaloneActivity extends AppCompatActivity {
 
         final EditText input = new EditText(getApplicationContext());
         input.setInputType(InputType.TYPE_CLASS_TEXT );
+        input.setTextColor(Color.BLACK);
         builder.setView(input);
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -430,11 +453,13 @@ public class StandaloneActivity extends AppCompatActivity {
 //                    callpic();
 
 
-                    checkslide();
+                    DontCheckSlide();
+
 
 //                        TODO
 //                    getImage();
-                } else checkslide();
+                } else DontCheckSlide();
+
 //                    showAlert();
 
 
@@ -494,6 +519,15 @@ public class StandaloneActivity extends AppCompatActivity {
 
 
     private void checkslide() {
+
+
+        if (!RFID) {
+//            checkslide();
+            showAlert();
+            return;
+
+        }
+
         final String[] checked_slide = {"init"};
 
 
@@ -669,12 +703,12 @@ public class StandaloneActivity extends AppCompatActivity {
 
         requestOptions.diskCacheStrategy(DiskCacheStrategy.NONE);
         requestOptions.skipMemoryCache(true);
+        StartButton.setEnabled(false);
 
 
 
         progressBar.setVisibility(View.VISIBLE);
         retakebutton.setVisibility(View.GONE);
-        StartButton.setEnabled(false);
 
         Glide.with(getApplicationContext())
                 .load(URL_DOMAIN + EndPoints.URL_get_image + ID)
@@ -691,6 +725,9 @@ public class StandaloneActivity extends AppCompatActivity {
                                     public void onClick(SweetAlertDialog sweetAlertDialog) {
                                         fDialog.dismissWithAnimation();
 //                                        onBackPressed();
+                                        progressBar.setVisibility(View.GONE);
+
+                                        StartButton.setEnabled(true);
 
                                     }
                                 })

@@ -151,18 +151,46 @@ public class Clean_Fragment extends Fragment {
 
 
     private void showAlert() {
+        final Boolean[] RFID = {null};
+        CharSequence[] values = {"PI 3  ", "Pi Zero"};
+
 
         SharedPreferences pref = getActivity().getSharedPreferences("IP", 0); // 0 - for private mode
         String IP = pref.getString("IP", null); // getting String
 
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Enter IP address:");
-        if (IP != null) {
-            builder.setMessage("Current IP address is:" + IP);
+        RFID[0] = pref.getBoolean("RFID", false);
+        int checked = 0;
+        if (!RFID[0]) {
+            checked = 1;
         }
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setSingleChoiceItems(values, checked, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0:
+                        RFID[0] = true;
+                        break;
+                    case 1:
+                        RFID[0] = false;
+                        break;
+                }
+            }
+        });
+
+
+        builder.setTitle("Enter IP address:");
+        if (IP != null) {
+            builder.setTitle("Current IP address:" + IP);
+        }
+        final LinearLayout linearLayout = new LinearLayout(getActivity());
+
         final EditText input = new EditText(getActivity());
+        input.setHint("IP Address");
+        if (IP != null) {
+            input.setText(IP);
+        }
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
 
@@ -178,6 +206,8 @@ public class Clean_Fragment extends Fragment {
                     SharedPreferences.Editor editor = pref.edit();
 
                     editor.putString("IP", IP); // Storing string
+                    editor.putBoolean("RFID", RFID[0]); // Storing string
+
                     editor.apply(); // commit changes
 
                 } else showAlert();
